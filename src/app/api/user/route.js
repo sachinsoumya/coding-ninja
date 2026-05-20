@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-
+//* GET request function
 export function GET(req) {
   const users = [
     {
@@ -24,9 +24,15 @@ export function GET(req) {
 
   return NextResponse.json(users);
 }
-
+//* POST request function
 export function POST() {}
+//* DELETE request function */
 
+//* to get the something(userID) to delete we can get
+
+//* uri variables
+//* or req.body
+//* or query parameters
 export function DELETE(request) {
 
     console.log("Delete api called")
