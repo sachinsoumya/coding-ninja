@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 //* GET request function
 export function GET(req) {
   const users = [
@@ -25,26 +25,56 @@ export function GET(req) {
   return NextResponse.json(users);
 }
 //* POST request function
-export function POST() {}
-//* DELETE request function */
+export async function POST(request) {
+  console.log("Post api called");
+  // console.log(request);
+  // console.log(request.body);
+  // console.log(request.cookies);
+  // console.log(request.headers);
+  // console.log(request.nextUrl);
+  // console.log(request.nextUrl.pathname); 
+  // console.log(request.nextUrl.searchParams);
+  // console.log(NextRequest);
+  // console.log(request.body);
 
-//* to get the something(userID) to delete we can get
+  // const r = request.json().then((data)=>console.log(data)).catch((err =>console.log(err)));
 
-//* uri variables
-//* or req.body
-//* or query parameters
+  // console.log(r);
+
+  const textdata = request.text().then((data)=>console.log(data)).catch(err=>console.log(err));
+
+  console.log(textdata);
+
+  // const r = await request.json();
+  // console.log(r);
+
+  return Response.json({
+    message: "User created successfully",
+    status: true,
+  });
+}
+
 export function DELETE(request) {
+  //* DELETE request function */
 
-    console.log("Delete api called")
+  //* to get the something(userID) to delete we can get
 
-    return NextResponse.json({
-        message:"User deleted successfully",
-        status:true
-    }, {
-        status:201,
-        statusText:"hey status text is changed"
-    })
+  //* uri variables
+  //* or req.body
+  //* or query parameters
 
+  console.log("Delete api called");
+
+  return NextResponse.json(
+    {
+      message: "User deleted successfully",
+      status: true,
+    },
+    {
+      status: 201,
+      statusText: "hey status text is changed",
+    },
+  );
 }
 
 export function PUT() {}
