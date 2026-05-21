@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { connectToDB } from "@/helper/db";
+
+connectToDB();
+
 //* GET request function
 export function GET(req) {
   const users = [
@@ -7,6 +11,7 @@ export function GET(req) {
       email: "sachin@gmail.com",
       mobile: 7008812150,
       position: "Batsman",
+      
     },
     {
       name: "Lamda",
@@ -32,7 +37,7 @@ export async function POST(request) {
   // console.log(request.cookies);
   // console.log(request.headers);
   // console.log(request.nextUrl);
-  // console.log(request.nextUrl.pathname); 
+  // console.log(request.nextUrl.pathname);
   // console.log(request.nextUrl.searchParams);
   // console.log(NextRequest);
   // console.log(request.body);
@@ -41,7 +46,10 @@ export async function POST(request) {
 
   // console.log(r);
 
-  const textdata = request.text().then((data)=>console.log(data)).catch(err=>console.log(err));
+  const textdata = request
+    .text()
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
 
   console.log(textdata);
 
