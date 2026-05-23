@@ -11,15 +11,15 @@ export const connectToDB = async () => {
 
     console.log("Connected to DB successfully");
 
-    const user1 = new User({
-      name: "Soumya",
-      email: "soumya@gmail.com",
-      password: "123456",
-      about: "Sachin is a full-stack web developer",
-    });
+    // const user1 = new User({
+    //   name: "Soumya",
+    //   email: "soumya@gmail.com",
+    //   password: "123456",
+    //   about: "Sachin is a full-stack web developer",
+    // });
 
-    await user1.save();
-    console.log("user is created");
+    // await user1.save();
+    // console.log("user is created");
     // console.log("Connected to the host:" , connections[0].host);
   } catch (err) {
     console.log("Error while connecting to Db", err);

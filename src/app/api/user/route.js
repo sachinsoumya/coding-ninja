@@ -1,60 +1,54 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "@/helper/db";
+import { User } from "@/models/user";
 
 connectToDB();
 
 //* GET request function
-export function GET(req) {
-  const users = [
-    {
-      name: "Sachin",
-      email: "sachin@gmail.com",
-      mobile: 7008812150,
-      position: "Batsman",
-      
-    },
-    {
-      name: "Lamda",
-      email: "lamda@gmail.com",
-      mobile: 7008812151,
-      position: "Batsman",
-    },
-    {
-      name: "Dhoni",
-      email: "dhoni@gmail.com",
-      mobile: 7008812152,
-      position: "Wicket-keeper",
-    },
-  ];
+export async function GET(req) {
+  console.log("GET api called");
+
+  let users;
+
+  try {
+    users = await User.find({});
+    console.log(users);
+  } catch (err) {
+    console.log(err);
+  }
 
   return NextResponse.json(users);
 }
 //* POST request function
 export async function POST(request) {
   console.log("Post api called");
-  // console.log(request);
-  // console.log(request.body);
-  // console.log(request.cookies);
-  // console.log(request.headers);
-  // console.log(request.nextUrl);
-  // console.log(request.nextUrl.pathname);
-  // console.log(request.nextUrl.searchParams);
-  // console.log(NextRequest);
-  // console.log(request.body);
+  // Get the user data from the request body
 
-  // const r = request.json().then((data)=>console.log(data)).catch((err =>console.log(err)));
+  const { name, email, password, about, profileImage } = await request.json();
 
-  // console.log(r);
+  //create a user with user model
 
-  const textdata = request
-    .text()
-    .then((data) => console.log(data))
-    .catch((err) => console.log(err));
+  const createdUser = new User({
+    name,
+    email,
+    password,
+    about,
+    profileImage,
+  });
 
-  console.log(textdata);
+  //save the user to the database
+  //* used try and catch for handling the ERROR if the error occours in try block
+  try {
+    const user = await createdUser.save();
 
-  // const r = await request.json();
-  // console.log(r);
+    console.log(user);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({
+      message: "Error creating user",
+      status: false,
+    });
+  }
 
   return Response.json({
     message: "User created successfully",
