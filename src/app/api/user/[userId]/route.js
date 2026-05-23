@@ -1,16 +1,29 @@
 //* DELETE
 
 import { NextResponse } from "next/server";
+import { User } from "@/models/user";
+import { connectToDB } from "@/helper/db";
 
-export async function DELETE(request , {params}){
+connectToDB();
 
-  
+export async function DELETE(request, { params }) {
+  //* Deleting user by id */
 
-    const {userId , title}  = await params;
-    
-    console.log("user id is" + " "+userId);
-    console.log("title is "+ " "+title);
+  const { userId } = await params;
+  console.log("user id is" + " " + userId);
+
+  try {
+    const deletedUser = await User.deleteOne({ _id: userId });
+    console.log(deletedUser);
     return NextResponse.json({
-        message:"Deleted successfully"
+      message: "User deleted successfully",
+      status: true,
     });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({
+      message: "Error while deleting the user",
+      status: false,
+    });
+  }
 }
