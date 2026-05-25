@@ -4,14 +4,14 @@ import { User } from "@/models/user";
 
 connectToDB();
 
-//* GET request function
+//* GET request function - GET all users
 export async function GET(req) {
   console.log("GET api called");
 
   let users;
 
   try {
-    users = await User.find({});
+    users = await User.find({}).select("-password");
     console.log(users);
   } catch (err) {
     console.log(err);
@@ -19,7 +19,7 @@ export async function GET(req) {
 
   return NextResponse.json(users);
 }
-//* POST request function
+//* POST request function - POST a user to database
 export async function POST(request) {
   console.log("Post api called");
   // Get the user data from the request body
