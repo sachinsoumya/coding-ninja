@@ -22,7 +22,10 @@ export async function GET(req) {
 //* POST request function - POST a user to database
 export async function POST(request) {
   console.log("Post api called");
+
   // Get the user data from the request body
+
+  // console.log( await request.json());
 
   const { name, email, password, about, profileImage } = await request.json();
 
