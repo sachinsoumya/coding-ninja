@@ -40,7 +40,7 @@ export async function PUT(request, { params }) {
       { after: true },
     );
 
-     return NextResponse.json({
+    return NextResponse.json({
       message: "Task updated  successfully",
       data: updatedTask,
     });
@@ -53,4 +53,23 @@ export async function PUT(request, { params }) {
   }
 }
 
-export async function DELETE(request) {}
+export async function DELETE(request, { params }) {
+  const { taskId } = await params;
+
+  try {
+    const task = await Task.findByIdAndDelete(taskId);
+
+    console.log(task);
+
+    return NextResponse.json({
+      message: "Task deleted successfully",
+      status: true,
+    });
+  } catch (err) {
+    return NextResponse.json({
+      message: " Error while deleting the task",
+      status: false,
+      error: err.message,
+    });
+  }
+}
