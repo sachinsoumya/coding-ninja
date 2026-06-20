@@ -8,6 +8,12 @@ export async function GET(request, { params }) {
   const { taskId } = await params;
 
   try {
+    if(!taskId){
+      return NextResponse.json({
+        message: "Task ID is required",
+        status: false,
+      });
+    }
     const task = await Task.findById(taskId);
 
     console.log(task);
